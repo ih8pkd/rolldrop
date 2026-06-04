@@ -28,7 +28,7 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html, body { height: 100%; }
+  html, body { height: 100%; overflow-x: hidden; }
 
   body {
     background: var(--rich-black);
@@ -56,6 +56,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 1;
   }
 
   /* rolldrop» — Bold 120px @1920 → масштабируется по ширине вьюпорта */
@@ -151,6 +153,48 @@
     .qr-img  { width: 64px; border-radius: 8px; }
     .qr-label { font-size: 9px; letter-spacing: 0.14em; }
   }
+
+  /* ===== Эффекты «Тихий премиум» ===== */
+  /* 1. Мягкое салатовое свечение за словом */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(42vw 42vw at 50% 43%, rgba(211,251,55,.13), rgba(211,251,55,.04) 45%, transparent 72%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* 2. Блик пробегает по слову один раз при загрузке */
+  .wordmark { position: relative; }
+  @media (prefers-reduced-motion: no-preference) {
+    .wordmark::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.40) 50%, transparent 62%);
+      background-size: 250% 100%;
+      background-position: 180% 0;
+      animation: sheen 1.5s cubic-bezier(.4, 0, .2, 1) .5s 1 forwards;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+  }
+  @keyframes sheen { to { background-position: -120% 0; } }
+
+  /* 3. Плавное появление текста снизу вверх */
+  @media (prefers-reduced-motion: no-preference) {
+    .wordmark, .domain, .subtitle, .eyebrow, .qr-chip {
+      opacity: 0;
+      animation: fadeup .7s ease forwards;
+    }
+    .wordmark { animation-delay: .05s; }
+    .domain   { animation-delay: .18s; }
+    .subtitle { animation-delay: .30s; }
+    .eyebrow  { animation-delay: .42s; }
+    .qr-chip  { animation-delay: .60s; }
+  }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
