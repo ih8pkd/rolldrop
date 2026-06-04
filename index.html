@@ -165,24 +165,9 @@
     z-index: 0;
   }
 
-  /* 2. Блик пробегает по слову один раз при загрузке */
   .wordmark { position: relative; }
-  @media (prefers-reduced-motion: no-preference) {
-    .wordmark::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.40) 50%, transparent 62%);
-      background-size: 250% 100%;
-      background-position: 180% 0;
-      animation: sheen 1.5s cubic-bezier(.4, 0, .2, 1) .5s 1 forwards;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-  }
-  @keyframes sheen { to { background-position: -120% 0; } }
 
-  /* 3. Плавное появление текста снизу вверх */
+  /* Плавное появление текста снизу вверх */
   @media (prefers-reduced-motion: no-preference) {
     .wordmark, .domain, .subtitle, .eyebrow, .qr-chip {
       opacity: 0;
