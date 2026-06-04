@@ -67,6 +67,9 @@
     color: var(--pear);
   }
   .wordmark .d { color: #fff; }
+  /* «»» разбит на два одинарных шеврона; правый — белый акцент */
+  .wordmark .chev { letter-spacing: -0.12em; }
+  .wordmark .chev-w { color: #fff; }
   /* угловая скобка чуть тоньше визуально не трогаем — оставляем как в макете */
 
   /* rolldrop.io — Medium 28px */
@@ -111,14 +114,56 @@
     .subtitle { margin-top: clamp(16px, 3vw, 28px); }
     .eyebrow  { margin-top: clamp(14px, 2.6vw, 24px); }
   }
+
+  /* ===== QR «for investors» (правый нижний угол) ===== */
+  .qr-chip {
+    position: fixed;
+    right: clamp(16px, 3vw, 40px);
+    bottom: clamp(16px, 3vw, 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    z-index: 10;
+  }
+  .qr-label {
+    font-weight: 500;
+    font-size: clamp(9px, 1vw, 11px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pear);
+  }
+  .qr-img {
+    width: clamp(76px, 9vw, 116px);
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 6px 28px rgba(0,0,0,.45);
+    transition: transform .2s ease;
+  }
+  .qr-chip:hover .qr-img { transform: translateY(-2px); }
+
+  /* на маленьких экранах — компактнее, чтобы не наезжал на текст */
+  @media (max-width: 600px) {
+    .qr-chip { right: 14px; bottom: 14px; gap: 6px; }
+    .qr-img  { width: 64px; border-radius: 8px; }
+    .qr-label { font-size: 9px; letter-spacing: 0.14em; }
+  }
 </style>
 </head>
 <body>
   <main class="hero">
-    <h1 class="wordmark">roll<span class="d">d</span>rop&raquo;</h1>
+    <h1 class="wordmark">roll<span class="d">d</span>rop<span class="chev">&rsaquo;</span><span class="chev chev-w">&rsaquo;</span></h1>
     <p class="domain">rolldrop.io</p>
     <p class="subtitle">Игровые механики, которые превращают разовые касания в&nbsp;постоянную базу прямого контакта.</p>
     <p class="eyebrow">SECTION 228 · PRE-SEED · 2026</p>
   </main>
+
+  <a class="qr-chip" href="https://t.me/KIRYL_PKD" target="_blank" rel="noopener noreferrer" aria-label="For investors — Telegram @KIRYL_PKD">
+    <span class="qr-label">for investors</span>
+    <img class="qr-img" src="data:image/png;base64,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" width="116" height="116" alt="QR — Telegram t.me/KIRYL_PKD">
+  </a>
 </body>
 </html>
